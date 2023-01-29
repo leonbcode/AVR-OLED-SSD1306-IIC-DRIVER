@@ -123,7 +123,7 @@ typedef enum
 #define C_DefaultDigits 10
 
 #define C_OledFirstLine_U8 0x00u
-#define C_OledLastLine_U8 0x07u
+#define C_OledLastLine_U8 0x03u
 
 #define C_FirstLineAddress_U8 0xB8
 #define C_LastLineAddress_U8 0xBF
@@ -134,30 +134,6 @@ typedef enum
 #define C_MaxDigitsToDisplayUsingPrintf_U8 C_DisplayDefaultDigits_U8 /* Max dec/hexadecimal digits to be displayed using printf */
 
 #define C_MaxBarGraphs_U8 5
-/**************************************************************************************************/
-
-/***************************************************************************************************
- PreCompile configurations to enable/disable the functions
- ****************************************************************************************************
- PreCompile configuration to enable or disable the API's.
- 1.Required interfaces can be enabled/disabled by configuring its respective macros to 1/0.
- 2. By default all the API's are disabled.
- 3. Displaying of floating number takes huge controller resources and need to be enabled only
- if required. This implies for other interfaces as well.
- ****************************************************************************************************/
-#define Enable_OLED_DisplayString 1
-#define Enable_OLED_ScrollMessage 1
-#define Enable_OLED_DisplayNumber 1
-#define Enable_OLED_DisplayFloatNumber 1
-#define Enable_OLED_Printf 1
-#define Enable_OLED_DisplayLogo 1
-#define Enable_OLED_EnableInversion 1
-#define Enable_OLED_DisableInversion 1
-#define ENABLE_OLED_VerticalGraph 1
-#define ENABLE_OLED_HorizontalGraph 1
-#define Enable_OLED_SetBrightness 1
-#define Enable_OLED_GoToLine 1
-/**************************************************************************************************/
 
 /***************************************************************************************************
  Function Prototypes
@@ -165,20 +141,14 @@ typedef enum
 void OLED_Init(void);
 void OLED_DisplayChar(uint8_t ch);
 void OLED_DisplayString(uint8_t *);
-void OLED_ScrollMessage(uint8_t lineNum, char *strptr);
-void OLED_DisplayNumber(uint8_t v_numericSystem_u8, uint32_t v_number_u32, uint8_t v_numOfDigitsToDisplay_u8);
-void OLED_DisplayFloatNumber(double v_floatNum_f32);
-void OLED_Printf(const char *argList, ...);
 void OLED_Clear(void);
-void OLED_GoToPage(uint8_t);
 void OLED_GoToLine(uint8_t);
 void OLED_GoToNextLine(void);
 void OLED_SetCursor(uint8_t lineNumber, uint8_t CursorPosition);
-void OLED_DisplayLogo(char *ptr_Logo);
+void OLED_DisplayFrame(uint8_t *ptr_Logo);
+void OLED_AnimationNextFrame(char *ptr_Logo);
 void OLED_EnableInversion(void);
 void OLED_DisableInversion(void);
-void OLED_VerticalGraph(uint8_t var_barGraphNumber_u8, uint8_t var_percentageValue_u8);
-void OLED_HorizontalGraph(uint8_t var_barGraphNumber_u8, uint8_t var_percentageValue_u8);
 /**************************************************************************************************/
 
 #endif /* SSD1306_h */
