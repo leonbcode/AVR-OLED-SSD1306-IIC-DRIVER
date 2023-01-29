@@ -7,13 +7,6 @@
 //
 
 #include "SSD1306.h"
-#include <avr/interrupt.h>
-#include <avr/io.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <util/delay.h>
-
-#include "../i2c/i2c.h"
 
 uint8_t OledLineNum, OledCursorPos;
 
@@ -195,8 +188,7 @@ void OLED_DisplayChar(uint8_t ch) {
     ch = ch - 0x20; // As the lookup table starts from Space(0x20)
 
     while (1) {
-      dat = OledFontTable[ch]
-                         [i]; /* Get the data to be displayed for LookUptable*/
+      dat = OledFontTable[ch][i]; /* Get the data to be displayed for LookUptable*/
 
       oledSendByte(dat); /* Display the data and keep track of cursor */
       OledCursorPos++;
@@ -355,30 +347,6 @@ void OLED_DisplayFrame(uint8_t *ptr_Logo) {
   for (i = 0; i < 512; i++) // Send data
   {
     oledSendByte(ptr_Logo[i]);
-  }
-}
-
-void OLED_AnimationNextFrame(char *ptr_pmb) {
-  static int frame = 0;
-  static int direction = 1;
-  int i;
-  OLED_SetCursor(0, 0);
-
-  oledSendStart(SSD1306_ADDRESS);
-  oledSendByte(SSD1306_DATA_CONTINUE);
-
-  for (i = 0; i < 512; i++) // Send data
-  {
-    if (i + frame)
-      oledSendByte(ptr_pmb[i + frame]);
-  }
-
-  frame += (direction * 128);
-
-  if (frame == 1536 && direction == 1) {
-    direction = -1;
-  } else if (frame == 0 && direction == -1) {
-    direction = 1;
   }
 }
 

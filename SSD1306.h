@@ -9,10 +9,9 @@
 #ifndef SSD1306_h
 #define SSD1306_h
 
-#include <stdio.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
+#include <stdint.h>
+
+#include "../i2c/i2c.h"
 
 /***************************************************************************************************
  Macros to find the mod of a number
@@ -64,12 +63,7 @@ typedef signed long int sint32_t;
 #define C_UINT32_MAX 0xFFFFFFFFu
 #define C_UINT32_MIN 0x00u
 
-typedef enum
-{
-    E_BINARY = 2,
-    E_DECIMAL = 10,
-    E_HEX = 16
-} NumericSystem_et;
+typedef enum { E_BINARY = 2, E_DECIMAL = 10, E_HEX = 16 } NumericSystem_et;
 
 /******************************************************************************
  SSD1306 ID and Command List
@@ -128,10 +122,11 @@ typedef enum
 #define C_FirstLineAddress_U8 0xB8
 #define C_LastLineAddress_U8 0xBF
 
-#define C_DisplayDefaultDigits_U8 0xffu                              // Will display the exact digits in the number
-#define C_MaxDigitsToDisplay_U8 10u                                  // Max decimal/hexadecimal digits to be displayed
-#define C_NumOfBinDigitsToDisplay_U8 16u                             // Max bits of a binary number to be displayed
-#define C_MaxDigitsToDisplayUsingPrintf_U8 C_DisplayDefaultDigits_U8 /* Max dec/hexadecimal digits to be displayed using printf */
+#define C_DisplayDefaultDigits_U8 0xffu  // Will display the exact digits in the number
+#define C_MaxDigitsToDisplay_U8 10u      // Max decimal/hexadecimal digits to be displayed
+#define C_NumOfBinDigitsToDisplay_U8 16u // Max bits of a binary number to be displayed
+#define C_MaxDigitsToDisplayUsingPrintf_U8                                                                             \
+  C_DisplayDefaultDigits_U8 /* Max dec/hexadecimal digits to be displayed using printf */
 
 #define C_MaxBarGraphs_U8 5
 
@@ -146,7 +141,6 @@ void OLED_GoToLine(uint8_t);
 void OLED_GoToNextLine(void);
 void OLED_SetCursor(uint8_t lineNumber, uint8_t CursorPosition);
 void OLED_DisplayFrame(uint8_t *ptr_Logo);
-void OLED_AnimationNextFrame(char *ptr_Logo);
 void OLED_EnableInversion(void);
 void OLED_DisableInversion(void);
 /**************************************************************************************************/
