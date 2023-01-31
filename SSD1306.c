@@ -336,7 +336,7 @@ void OLED_SetCursor(uint8_t lineNumber, uint8_t cursorPosition) {
  User can enable/disable the inversion of the dislpay by using the below
  functions. OLED_EnableInversion/OLED_DisableInversion
  ****************************************************************************************************/
-void OLED_DisplayFrame(uint8_t *ptr_Logo) {
+void OLED_DisplayFrame(uint8_t *buffer) {
   int i;
 
   OLED_SetCursor(0, 0);
@@ -346,7 +346,7 @@ void OLED_DisplayFrame(uint8_t *ptr_Logo) {
 
   for (i = 0; i < 512; i++) // Send data
   {
-    oledSendByte(ptr_Logo[i]);
+    oledSendByte(buffer[i]);
   }
 }
 

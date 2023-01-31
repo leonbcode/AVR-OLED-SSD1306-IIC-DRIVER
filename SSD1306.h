@@ -140,7 +140,7 @@ void OLED_Clear(void);
 void OLED_GoToLine(uint8_t);
 void OLED_GoToNextLine(void);
 void OLED_SetCursor(uint8_t lineNumber, uint8_t CursorPosition);
-void OLED_DisplayFrame(uint8_t *ptr_Logo);
+void OLED_DisplayFrame(uint8_t *buffer);
 void OLED_EnableInversion(void);
 void OLED_DisableInversion(void);
 /**************************************************************************************************/
